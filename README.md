@@ -5,11 +5,9 @@ Architecture Overview
 
 ## The architecture comprises the following components:
 
-    - MongoDB: A NoSQL database deployed on Kubernetes, backed by AWS EBS for persistent storage.
-    
-    - Mongo Express: A web-based interface for managing MongoDB, exposed via a LoadBalancer.
-    
-    - Kubernetes Secrets: Securely managing sensitive data such as credentials.
+   - MongoDB: A NoSQL database deployed on Kubernetes, backed by AWS EBS for persistent storage.
+   - Mongo Express: A web-based interface for managing MongoDB, exposed via a LoadBalancer.
+   - Kubernetes Secrets: Securely managing sensitive data such as credentials.
 
 # Prerequisites
 
@@ -22,12 +20,12 @@ Architecture Overview
   1. AWS Setup
   1.1 Create a User with Permissions
 
-    - Create an AWS IAM user and attach the AmazonEBSCSIDriverPolicy.
+   - Create an AWS IAM user and attach the AmazonEBSCSIDriverPolicy.
 
 1.2 Create Access Keys
 
-    - Generate access and secret keys for the user.
+   - Generate access and secret keys for the user.
 
 1.3 Create a Role with Permissions
 
-    Create an IAM role and attach the AmazonEBSCSIDriverPolicy.
+   - Create an IAM role and attach the AmazonEBSCSIDriverPolicy.
