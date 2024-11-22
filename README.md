@@ -32,3 +32,10 @@ Architecture Overview
 1.3 Create a Role with Permissions
 
    - Create an IAM role and attach the AmazonEBSCSIDriverPolicy.
+
+## 5. Cleanup
+
+ **To delete all resources:**
+
+- kubectl delete -f mongodb-project/
+
