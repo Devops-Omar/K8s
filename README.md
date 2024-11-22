@@ -1,3 +1,6 @@
+
+![image](https://github.com/user-attachments/assets/058702a8-971a-400c-88d6-e114614f5589)
+
 # MongoDB and Mongo Express Deployment with AWS EBS
 
 This project demonstrates the deployment of a MongoDB application on Kubernetes using AWS EBS as a persistent storage solution. It also includes Mongo Express for managing the database via a web-based interface.
