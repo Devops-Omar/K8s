@@ -1,5 +1,4 @@
-
-![image](https://github.com/user-attachments/assets/058702a8-971a-400c-88d6-e114614f5589)
+![2](https://github.com/user-attachments/assets/34a7c34c-0f55-4b36-ac24-bf404febc77d)
 
 # MongoDB and Mongo Express Deployment with AWS EBS
 
