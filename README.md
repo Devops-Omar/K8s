@@ -15,7 +15,7 @@ Architecture Overview
 
    - Kubernetes Cluster with sufficient resources.
    - AWS account with the following permissions:
-   -     AmazonEBSCSIDriverPolicy
+         AmazonEBSCSIDriverPolicy
    - AWS CLI and kubectl configured to manage resources.
 
 # Steps to Deploy
@@ -53,79 +53,63 @@ Architecture Overview
 
 3.1. Create Secrets for MongoDB
 
-   - Generate base64-encoded values for the username and password:
-      Here's the updated and organized README.md to include both AWS and Kubernetes deployment steps:
-MongoDB and Mongo Express Deployment with AWS EBS
+  - Generate base64-encoded values for the username and password:
+  - create the secret YAML file 101-Secrets for MongoDB Credentials.yml:
 
-This project demonstrates the deployment of a MongoDB application on Kubernetes using AWS EBS as a persistent storage solution. It also includes Mongo Express for managing the database via a web-based interface.
-Architecture Overview
+  - Apply the secret:
+    - kubectl apply -f 101-Secrets\ for\ MongoDB\ Credentials.yml
+   
+3.2. Create a StorageClass for MongoDB
 
-The architecture comprises the following components:
+   - Define a StorageClass for dynamic volume provisioning:
 
-    MongoDB: A NoSQL database deployed on Kubernetes, backed by AWS EBS for persistent storage.
-    Mongo Express: A web-based interface for managing MongoDB, exposed via a LoadBalancer.
-    Kubernetes Secrets: Securely managing sensitive data such as credentials.
+   - Apply the StorageClass:
+     - kubectl apply -f 103-StorageClass.yml
+    
+3.3. Create a PersistentVolumeClaim
 
-Prerequisites
+   - Create the PVC YAML:
 
-    Kubernetes Cluster:
-        With sufficient resources for the applications.
-        kubectl configured to manage the cluster.
+   - Apply the PVC:
+     - kubectl apply -f 104-PersistentVolumeClaim.yml
+    
+3.4. Deploy MongoDB
 
-    AWS Setup:
-        AWS account with the following permissions:
-            AmazonEBSCSIDriverPolicy
-        AWS CLI configured with access and secret keys.
+   - Create a deployment YAML file for MongoDB:
+     - kubectl apply -f 105-Deploy\ MongoDB.yml
+    
+3.5. Expose MongoDB Service
 
-    Required Tools:
-        Docker and kubectl installed on your local machine.
-        Basic understanding of Kubernetes YAML files.
+   - Expose MongoDB as a ClusterIP service:
+     - kubectl apply -f 106-Expose\ MongoDB\ Service.yml
 
-Steps to Deploy
-1. AWS Setup
-1.1. Create a User with Permissions
+**4. Mongo Express Deployment**
 
-    Create an AWS IAM user and attach the AmazonEBSCSIDriverPolicy.
+4.1. Create ConfigMap
+   
+   - Apply the ConfigMap:
+     - kubectl apply -f 107-ConfigMap.yml
 
-1.2. Create Access Keys
+4.2. Deploy Mongo Express
 
-    Generate access and secret keys for the user.
+   - Create a deployment YAML file for Mongo Express:
+     - kubectl apply -f 108-Deploy\ Mongo\ Express.yml
+    
+4.3. Expose Mongo Express Service
 
-1.3. Create a Role with Permissions
+   - Expose Mongo Express as a LoadBalancer:
+     - kubectl apply -f 109-Expose\ Mongo\ Express\ Service.yml
+    
+**5. Verify Deployment**
 
-    Create an IAM role and attach the AmazonEBSCSIDriverPolicy.
+   - Check the status of pods:
+     - kubectl get po
 
-2. Kubernetes Setup
-2.1. Verify EBS CSI Driver
+   - Verify the services:
+     - kubectl get svc
 
-Run the following commands to ensure that the EBS CSI driver is correctly installed:
+**5. Cleanup**
 
-kubectl get csidriver
-kubectl get csinode
-
-2.2. Create Secrets for AWS Credentials
-
-To allow Kubernetes to communicate with AWS EBS, create a secret:
-
-kubectl create secret generic aws-secret \
-    --namespace kube-system \
-    --from-literal "key_id=<ACCESS_KEY_ID>" \
-    --from-literal "access_key=<SECRET_ACCESS_KEY>"
-
-3. MongoDB Deployment
-3.1. Create Secrets for MongoDB
-
-Generate base64-encoded values for the username and password:
-
-echo -n 'your-username' | base64
-echo -n 'your-password' | base64
-     
-
-
-
-## 5. Cleanup
-
- **To delete all resources:**
-
-- kubectl delete -f mongodb-project/
+   - To delete all resources:
+     - kubectl delete -f mongodb-project/
 
